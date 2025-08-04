@@ -31,7 +31,7 @@ function Page ({ params }) {
     return (
       <div className="error-container">
         <h2>Student not found</h2>
-        <p>The student youre looking for doesn't exist.</p>
+        <p>The student youre looking for doesnt exist.</p>
         <Link href="/" className="back-button">
           ← Back to Students
         </Link>
