@@ -17,103 +17,125 @@ const page = ({ params }) => {
   }, []);
 
   let student = students.find((s) => s.name === params.student);
-  return (
-    <div
-      className="container"
-      style={{
-        maxWidth: 500,
-        minHeight: "60vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        className="student animated-gradient"
-        style={{
-          width: "100%",
-          padding: "32px 24px",
-          borderRadius: "18px",
-          background:
-            "linear-gradient(270deg, #06b6d4, #14b8a6, #0ea5e9, #06b6d4)",
-          backgroundSize: "600% 600%",
-          boxShadow: "0 4px 16px rgba(6, 182, 212, 0.15)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "18px",
-          animation: "gradientMove 6s ease-in-out infinite",
-        }}
-      >
-        <h1
-          style={{
-            color: "#fff",
-            fontSize: "2rem",
-            fontWeight: 700,
-            margin: 0,
-            animation: "scalePulse 2s infinite",
-            letterSpacing: "2px",
-          }}
-        >
-          Student Details
-        </h1>
-        <p
-          style={{
-            color: "#e0f2fe",
-            fontSize: "1.1rem",
-            margin: "12px 0",
-          }}
-        >
-          Name: {student ? student.name : "Loading..."}
-          <br />
-          Age: {student ? student.age : "Loading..."}
-          <br />
-          Hobby: {student ? student.hobby : "Loading..."}
-        </p>
-        <Link
-          className="ok"
-          href={"/"}
-          style={{
-            marginTop: "18px",
-            background: "#0ea5e9",
-            color: "#fff",
-            padding: "8px 18px",
-            borderRadius: "8px",
-            fontWeight: 500,
-            boxShadow: "0 2px 8px rgba(6,182,212,0.07)",
-            transition: "background 0.18s, color 0.18s",
-            textDecoration: "none",
-          }}
-        >
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading student details...</p>
+      </div>
+    );
+  }
+
+  if (!student) {
+    return (
+      <div className="error-container">
+        <h2>Student not found</h2>
+        <p>The student you're looking for doesn't exist.</p>
+        <Link href="/" className="back-button">
           ← Back to Students
         </Link>
       </div>
-      <style jsx>{`
-        @keyframes gradientMove {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-        @keyframes scalePulse {
-          0%,
-          100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.07);
-          }
-        }
-      `}</style>
+    );
+  }
+
+  return (
+    <div className="student-detail-container">
+      <div className="student-detail-card">
+        {/* Header Section */}
+        <div className="student-header">
+          <div className="student-avatar">
+            <span>{student.name.charAt(0).toUpperCase()}</span>
+          </div>
+          <div className="student-title">
+            <h1>{student.name}</h1>
+            <p className="student-subtitle">{student.profession || "Student"}</p>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="student-content">
+          <div className="info-grid">
+            <div className="info-item">
+              <div className="info-icon">🎂</div>
+              <div className="info-content">
+                <label>Age</label>
+                <span>{student.age} years old</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="info-icon">🏙️</div>
+              <div className="info-content">
+                <label>City</label>
+                <span>{student.city || "Not specified"}</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="info-icon">🎯</div>
+              <div className="info-content">
+                <label>Hobby</label>
+                <span>{student.hobby}</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="info-icon">💻</div>
+              <div className="info-content">
+                <label>Favorite Language</label>
+                <span>{student.favouriteLanguage || "Not specified"}</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="info-icon">🌟</div>
+              <div className="info-content">
+                <label>Personality</label>
+                <span>{student.personality || "Not specified"}</span>
+              </div>
+            </div>
+
+            <div className="info-item skills-item">
+              <div className="info-icon">🛠️</div>
+              <div className="info-content">
+                <label>Skills</label>
+                <div className="skills-tags">
+                  {student.skills?.length ? (
+                    student.skills.map((skill, index) => (
+                      <span key={index} className="skill-tag">
+                        {skill}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="no-skills">No skills listed</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bio Section */}
+          {student.bio && (
+            <div className="bio-section">
+              <h3>About</h3>
+              <p>{student.bio}</p>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="student-footer">
+          <Link href="/" className="back-button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Students
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default page;
-
-
