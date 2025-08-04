@@ -68,7 +68,7 @@ export default function Home() {
           <h2>All Students ({filteredStudents.length})</h2>
           {searchTerm && (
             <p className="search-results">
-              Showing results for "{searchTerm}"
+              {`Showing results for "${searchTerm}"`}
             </p>
           )}
         </div>
