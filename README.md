@@ -1,5 +1,10 @@
 # Student Directory - Modern Web Application
 
+## 🌐 Live Deployment
+
+Paste your working deployment link here:  
+[https://student-management-nextjs.vercel.app/](https://student-management-nextjs.vercel.app/)
+
 A beautiful, modern student directory web application built with Next.js. This project showcases a professional UI design with advanced features like search functionality, colorful student cards, and detailed profile pages.
 
 ## ✨ Features
